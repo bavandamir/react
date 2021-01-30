@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>STORE</title>
+
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+</head>
+
+<body>
+    <div id="app"></div>
+
+    <script type="text/babel">
+
+
+        fetch("https://fakestoreapi.com/products")
+        .then((s) => s.json())
+        .then((s) => {
+        view(s);
+        });
+
+
+        function view(list) {
+        const element = (
+        <div className="container ">
+            <div className="row">
+                {list.map((s, i) => {
+                return (
+                <div key={s.id} className="col-lg-3">
+                    <div className="card">
+                        <img className="card-img" style={{ height: 200 , width:200 }} src={s.image} alt={s.title} />
+                        <div className="card-body">
+                            <h5 className="card-title" title={s.title}>
+                                {s.title}
+                            </h5>
+                            <div>
+                                <ul className="list-group">
+                                    <li className="list-group-item">
+                                        { s.description }
+                                    </li>
+                                    <li className="list-group-item">${s.price}</li>
+                                </ul>
+                                <br />
+                                <input type="button" className=" btn-dark btn btn-block" value="view" />
+                                <input type="button" className=" btn-success btn btn-block" value="add to card" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                );
+                })}
+            </div>
+        </div>
+        );
+
+        ReactDOM.render(element, document.getElementById("app"));
+        }
+
+    </script>
+</body>
+</html>
